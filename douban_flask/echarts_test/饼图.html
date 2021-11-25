@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./echarts.min.js"></script>
+    <title>饼图</title>
+</head>
+<body>
+    <div id = "main" style = "width:1000px; height:600px;"></div>
+    <script>
+        var mychart = echarts.init(document.getElementById('main'));
+        var piedata = [
+            {
+                name:'淘宝',
+                value:11231
+            },
+            {
+                name:'京东',
+                value:10119
+            },
+            {
+                name:'拼多多',
+                value:8216
+            },
+            {
+                name:'苏宁易购',
+                value:4312
+            },
+            {
+                name:'唯品会',
+                value:3695
+            },
+        ]
+        var option = {
+            series:[
+                {
+                    type: 'pie',
+                    data: piedata,
+                    // radius:['30%','75%'],
+                    roseType:'radius',
+                    // roseType:'area',
+                    selectedMode:'single',
+                    // selectedMode:'multiple',
+                    selectedOffset: 30,
+                }
+            ],
+        };
+
+        mychart.setOption(option);
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test_2</title>
+    <!-- 1. 引入echarts.min.js文件 -->
+    <script src = "../static/assets/js/echarts.min.js"></script>
+    <!-- <style>
+        div {
+            width: 600px;
+            height: 400px;
+        }
+    </style> -->
+</head>
+<body>
+    <!-- 2. 准备一个呈现图标的盒子 -->
+    <div id="main" style = "width: 700px; height: 400px;"></div>
+    <!--  -->
+    <script>
+        // 3. 初始echarts的实例对象
+        // 参数，dom,决定图标最终呈现的位置
+        var mychart = echarts.init(document.getElementById('main'));
+        // var mychart = echarts.init(document.querySelector('div'));
+        var data_1 = ['语文', '数学']
+        var data_2 = ['王磊', '夏斯超', '夏策扬', '刘育成']
+        // 4. 准备配置项
+        var option = {
+            title: {
+                text: '分数统计',
+                link:'https://www.itcast.cn',
+                textStyle:{
+                    color:'#963',
+                    fontSize:'20px'
+                }
+            },
+            tooltip: {
+                // tirgger:'item'
+                trigger:'axis',
+                // triggerOn:'click'
+                // triggerOn:'mousemove'
+                triggerOn:'mousemove|click'
+            },
+            // formatter:'{b}的成绩是{c0}和{c1}',
+            toolbox:{
+                feature:{
+                    saveAsImage:{},
+                    dataView:{},
+                    restore:{},
+                    dataZoom:{},
+                    magicType:{
+                        type:['bar','line','stack']
+                    }
+                }
+            },                                                                                                        
+            legend: {
+                data : data_1
+            },
+            xAxis:{
+                type: 'category',
+                data: data_2
+            },
+            yAxis:{
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '语文',
+                    type: 'bar',
+                    markPoint:{
+                        data:[
+                        {
+                            type:"max",
+                            name:"最大值"
+                        },
+                        {
+                            type:"min",
+                            name:"最小值"
+                        }
+                        ],
+                        symbol:'pin'
+                    },
+                    markLine:{
+                        data:[
+                            {
+                                type:'average',
+                                name:'平均值'
+                            }
+                        ]
+                    },
+                    label:{
+                        show:true,
+                        position:'insidetop'
+                    },
+                    data: [71, 63, 72 , 78]
+                },
+                {
+                    name: '数学',
+                    type: 'bar',
+                    markPoint:{
+                        data:[
+                        {
+                            type:"max",
+                            name:"最大值"
+                        },
+                        {
+                            type:"min",
+                            name:"最小值"
+                        }
+                    ],
+                    symbol:'pin'
+                    },
+                    markLine:{
+                        data:[
+                            {
+                                type:'average',
+                                name:'平均值'
+                            }
+                        ]
+                    },
+                    label:{
+                        show: true,
+                        rotate:30,
+                        position:'top'
+                    },
+                    barWidth:'20%', 
+                    data: [83, 85, 68 , 69]
+                }
+            ]
+        };
+        // 5. 将配置项设置给echarts实例对象
+        mychart.setOption(option);
+    </script>
+
+</body>
+</html>
