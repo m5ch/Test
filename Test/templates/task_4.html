@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task_4</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/通用样式.css') }}">
+    <script src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        const myChart = echarts.init(document.getElementById('main'))
+        const option = {
+            title:{
+                text:'城市商家数量Top10',
+                left:'center'
+            },
+            legend:{},
+            tooltip:{},
+            xAxis:{
+                type:'value',
+                scale:true
+            },
+            yAxis:{
+                type:'category',
+                data:[
+                    {% for i in data -%}
+                        '{{ i[0] }}',
+                    {%- endfor %}
+                ]
+            },
+            series:[
+                {
+                    type:'bar',
+                    data:[
+                        {% for i in data -%}
+                            {{ i[1] }},
+                        {%- endfor %}
+                    ],
+                    label:{
+                      show:true,
+                      position: 'right',
+                      formatter:'{c}'
+                    },
+                },
+            ]
+        }
+        myChart.setOption(option)
+    </script>
+</body>
+</html>

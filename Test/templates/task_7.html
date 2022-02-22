@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task_7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/通用样式.css') }}">
+    <script src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        const myChart = echarts.init(document.getElementById('main'))
+        const option = {
+            title:{
+                text:'审核通过与拒绝对比',
+                left:'center',
+            },
+            tooltip:{
+                trigger:'axis',
+            },
+            legend:{},
+            xAxis:{
+                type:'category',
+                data:[
+                    {% for i in res -%}
+                        '{{ i[3] }}',
+                    {% endfor %}
+                ]
+            },
+            yAxis:{
+                type:'value',
+                scale:true
+            },
+            series:[
+                {
+                    type:'bar',
+                    data:[
+                        {% for i in res -%}
+                            {{ i[2] }},
+                        {%- endfor %}
+                    ],
+                    itemStyle:{
+                            color:'blue',
+                    },
+                    label:{
+                        show:true,
+                        position:'top'
+                    },
+                },
+                {
+                    type:'bar',
+                    data:[
+                        {% for i in res -%}
+                            {{ i[1] - i[2] }},
+                        {%- endfor %}
+                    ],
+                    itemStyle:{
+                        color:'red',
+                    },
+                    label:{
+                        show:true,
+                        position:'top'
+                    },
+                },
+            ]
+        }
+        myChart.setOption(option)
+    </script>
+</body>
+</html>

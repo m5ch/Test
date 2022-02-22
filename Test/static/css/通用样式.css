@@ -1,0 +1,22 @@
+#main{
+    width: 1000px;
+    height: 600px;
+    left: 0;
+    right: 0;
+    margin: 100px auto auto;
+    overflow: auto;
+}
+
+
+/*.main{*/
+/*    width: 1000px;*/
+/*    height: 700px;*/
+/*}*/
+/*#main{*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+
+/*}*/

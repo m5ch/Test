@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task_12</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/通用样式.css') }}">
+    <script src="{{ url_for('static',filename='js/echarts.js') }}"></script>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        const myChart = echarts.init(document.getElementById('main'))
+        const option = {
+            title:{
+                text:'各业务包评价组成',
+                left:'center',
+            },
+            tooltip:{
+                trigger:'axis',
+            },
+            {#legend:{#}
+            {#    data:[]#}
+            {#},#}
+            toolbox:{
+                show:true,
+                right:'5 %',
+                orient:'vertical',
+                feature:{
+                    magicType:{
+                        type:['stack', 'line', 'bar'],
+                    },
+                }
+            },
+            xAxis:{
+                type:'category',
+                data:[
+                    {% for i in res -%}
+                        '{{ i[0] }}',
+                    {%- endfor %}
+                ],
+            },
+            yAxis:{
+                type:'value',
+                scale:true,
+            },
+            series:[
+                {
+                    type:'bar',
+                    data:[
+                        {% for i in res %}
+                            {{ i[1] }},
+                        {% endfor %}
+                    ],
+                    itemStyle: {
+                        color:'black',
+                    },
+                    label:{
+                        show:true,
+                        position:'inside',
+                        formatter:'{c}',
+                        rotate:'45'
+                    },
+                },
+                {
+                    type:'bar',
+                    data:[
+                        {% for i in res %}
+                            {{ i[2] }},
+                        {% endfor %}
+                    ],
+                    itemStyle:{
+                        color:'red',
+                    },
+                    label:{
+                        show:true,
+                        position:'inside',
+                        formatter:'{c}',
+                        rotate:'45'
+                    },
+                },
+            ],
+        }
+        myChart.setOption(option)
+    </script>
+</body>
+</html>

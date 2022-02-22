@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task_11</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/通用样式.css') }}">
+    <script src="{{ url_for('static',filename='js/echarts.js') }}"></script>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        const myChart = echarts.init(document.getElementById('main'))
+        const option = {
+            title:[
+                {
+                    text:'各商户业务部商家数量',
+                    left:'25%',
+                },
+                {
+                    text:'占比',
+                    left:'75%',
+                }
+            ],
+            legend:{
+                orient:'vertical',
+                left:'90%',
+            },
+            grid:[
+                {
+                    top:'5%',
+                    width:'45%',
+                },
+                {
+                    top:'5%',
+                    width:'45%',
+                    left:'50%'
+                }
+            ],
+            xAxis:[
+                {
+                    type:'category',
+                    data:[
+                        {% for i in res -%}
+                            '{{ i[0] }}',
+                        {% endfor %}
+                    ],
+                },
+            ],
+            yAxis:[
+                {
+                    type:'value',
+                    scale:true,
+                },
+            ],
+            series:[
+                {
+                    type:'bar',
+                    data:[
+                        {% for i in res %}
+                            {{ i[1] }},
+                        {% endfor %}
+                    ],
+                    label:{
+                        show:true,
+                        position:'top',
+                    },
+                    itemStyle:{
+                        color:'blue',
+                    },
+                },
+                {
+                    type:'pie',
+                    radius:[0,'50%'],
+                    center:['75%','50%'],
+                    data:[
+                        {% for i in res -%}
+                            {
+                                name:'{{ i[0] }}',
+                                value:{{ i[2] }},
+                            },
+                        {%- endfor %}
+                    ],
+                    roseType:'radius',
+                    label:{
+                        show:true,
+                        position:'inside',
+                        formatter:'{d}%',
+                    }
+                },
+            ],
+        }
+        myChart.setOption(option)
+    </script>
+</body>
+</html>

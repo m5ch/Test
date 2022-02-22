@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务三</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/通用样式.css') }}">
+    <script src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        const myChart = echarts.init(document.getElementById('main'))
+       const pieData = [
+           {
+               name:'众包',
+               value:{{ res_1[0][1] }},
+           },{
+               name:'专送',
+               value:{{ res_2[0][1] }},
+           },{
+               name:'自营销',
+               value:{{ res_3[0][1] }},
+           },
+
+       ]
+        const option = {
+            title:{
+                text:'标品属性占比'
+                },
+            tooltip:{},
+            legend:{},
+            series:[
+                {
+                    type: 'pie',
+                    data: pieData,
+                    roseType: 'radius',
+                    label: {
+                        show: true,
+                        position: 'inside',
+                        formatter:'{d}%',
+                        fontSize: 20
+                    },
+                },
+            ]
+        }
+        myChart.setOption(option)
+    </script>
+</body>
+</html>

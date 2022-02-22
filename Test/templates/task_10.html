@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task_10</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/通用样式.css') }}">
+    <script src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        const myChart = echarts.init(document.getElementById('main'))
+        const option = {
+            title:[
+                {
+                    text:'各城市商家数量Top10',
+                    left:'20%',
+                    textAline:'center'
+                },
+                {
+                    text:'给1百万通过后',
+                    textAline:'center',
+                    left:'70%',
+                },
+            ],
+            legend:{},
+            tooltip:{
+                trigger:'axis',
+            },
+            grid:[
+                {
+                    top: 50,
+                    width: '45%',
+                    bottom: '30%',
+                    left: 10,
+                    containLabel:true,
+                },
+                {
+                    top: 50,
+                    width: '45%',
+                    bottom: '30%',
+                    left: '50%',
+                    containLabel:true,
+                },
+            ],
+            xAxis:[
+                {
+                    type:'value',
+                },
+                {
+                    type:'value',
+                    gridIndex:1
+                },
+            ],
+            yAxis:[
+                {
+                    type:'category',
+                    data:[
+                        {% for i in data -%}
+                            '{{ i[0] }}',
+                        {%- endfor %}
+                    ],
+                },
+                {
+                    type:'category',
+                    gridIndex:1,
+                    data:['a', 'b','c','d','e'],
+                },
+            ],
+            series:[
+                {
+                    type:'bar',
+                    data:[
+                        {% for i in data -%}
+                            {{ i[1] }},
+                        {% endfor %}
+                    ],
+                    label:{
+                        show:true,
+                        position:'right',
+                        labelStyle:{
+                            formatter:'{c}'
+                        },
+
+                    },
+                },
+                {
+                    type:'bar',
+                    xAxisIndex:1,
+                    yAxisIndex:1,
+                    data:[
+                        {{ res_1[0] }},
+                        {{ res_2[0] }},
+                        {{ res_3[0] }},
+                        {{ res_4[0] }},
+                        {{ res_5[0] }},
+                    ],
+                    label: {
+                        show: true,
+                        position: 'right',
+                        labelStyle: {
+                            formatter: '{c}'
+                        },
+                    },
+                },
+            ],
+        }
+        myChart.setOption(option)
+    </script>
+</body>
+</html>

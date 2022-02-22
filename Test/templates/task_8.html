@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task_8</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/通用样式.css') }}">
+    <script src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        const myChart = echarts.init(document.getElementById('main'))
+        const pieData = [
+            {
+                name:'4小时以内',
+                value:{{ res_1[0] }},
+            },{
+                name:'4~6小时',
+                value:{{ res_2[0] }},
+            },{
+                name:'6~8小时',
+                value:{{ res_3[0] }},
+            },{
+                name:'8~12小时',
+                value:{{ res_4[0] }},
+            },{
+                name:'12小时以上',
+                value:{{ res_5[0] }},
+            },
+
+        ]
+        const option = {
+            title:{
+                text:'各营业区间商家数量对比',
+                left:'center',
+            },
+            legend:{
+                orient:'vertical',
+                right: '5%'
+            },
+            tooltip:{
+                trigger:'item',
+
+            },
+            series:[
+                {
+                    type:'pie',
+                    data:pieData,
+                    {#roseType:'radius',#}
+                    selectedMode:'single',
+                    selectedOffset: 20,
+                    label:{
+                        position:'inside',
+                        formatter:'{d}%'
+                    },
+                }
+            ],
+        }
+        myChart.setOption(option)
+
+    </script>
+</body>
+</html>
